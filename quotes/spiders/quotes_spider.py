@@ -14,6 +14,6 @@ class QuoteSpider(scrapy.Spider):
                 'text': quote.css('span.text::text').get().replace('“', '').replace('”', '')
             }
 
-        next_page = response.css('li.next a').attrib['href']
+        next_page = response.css('li.next a::attr(href)').get()
         if next_page is not None:
             yield response.follow(next_page, callback=self.parse)
